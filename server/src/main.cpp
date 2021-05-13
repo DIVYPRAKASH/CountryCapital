@@ -4,10 +4,10 @@
 #include <nlohmann/json.hpp>
 #include <iostream>
 #include <string>
+
+#include <csignal>
 using namespace Pistache;
 /*
-
-    
 "capitals" : [
     {
         "country" : "string",
@@ -16,7 +16,7 @@ using namespace Pistache;
 
 */
 std::unordered_map<std::string, std::string> countryCapitalsStore;
-
+static bool quit{false};
 class RequestHandler : public Pistache::Http::Handler
 {
 
@@ -55,8 +55,28 @@ public:
   }
 };
 
+static void interruptHandler(int nSig)
+{
+    quit = true;
+}
 
 int main()
 {
-    Http::listenAndServe<RequestHandler>(Pistache::Address("*:9080"));
+    signal(SIGINT, interruptHandler);
+    signal(SIGTERM, interruptHandler);
+    signal(SIGUSR2, interruptHandler);
+    signal(SIGKILL, interruptHandler);
+    std::cout<< "\n Starting REST interface. Listening on port 9080 \n";
+
+    Pistache::Address addr(Pistache::Ipv4::any(), Pistache::Port(9080));
+    Pistache::Http::Endpoint server(addr);
+    auto opts = Http::Endpoint::options().threads(1).flags(Pistache::Tcp::Options::ReuseAddr);
+    server.init(opts);
+    server.setHandler(Http::make_handler<RequestHandler>());
+    server.serveThreaded();
+    while(!quit);
+
+    std::cout<< "Shutdown";
+    server.shutdown();
+    return 0;
 }

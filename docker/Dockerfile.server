@@ -1,0 +1,20 @@
+FROM ubuntu:20.10
+
+LABEL MAINTAINER "DIVY"
+
+RUN apt-get update && apt-get install -y apt-utils git
+RUN apt-get install -y software-properties-common
+RUN add-apt-repository -y ppa:pistache+team/unstable
+RUN apt update
+RUN apt install -y libpistache-dev
+RUN pkg-config --cflags --libs libpistache 
+
+RUN git clone https://github.com/ArthurSonzogni/nlohmann_json_cmake_fetchcontent
+
+EXPOSE 9080
+
+ADD country_server /
+
+#WORKDIR /usr/local/bin
+
+CMD ["/bin/bash"]
