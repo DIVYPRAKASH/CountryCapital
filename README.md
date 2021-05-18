@@ -69,8 +69,6 @@
 
       If successfull , response would be :
       
-      ` STATUS_CODE : 200
-
-        CAPITAL: Oslo`
+      ```STATUS_CODE : 200 , CAPITAL: Oslo```
     
      
