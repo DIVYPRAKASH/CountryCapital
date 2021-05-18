@@ -7,7 +7,7 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
 
 set(THREADS_PREFER_PTHREAD_FLAG ON) 
 find_package(Threads REQUIRED) 
-find_package(Boost 1.60.0 REQUIRED COMPONENTS system program_options)
+find_package(Boost 1.60.0 REQUIRED COMPONENTS program_options)
 
 ############################
 ##      SOURCE FILES      ##
@@ -35,22 +35,9 @@ if(NOT json_POPULATED)
   add_subdirectory(${json_SOURCE_DIR} ${json_BINARY_DIR} EXCLUDE_FROM_ALL)
 endif()
 
-
-# FetchContent_Declare(nlohmann_json
-#   URL https://github.com/nlohmann/json/releases/download/v3.1.2/include.zip
-# )
-#   FetchContent_Populate(nlohmann_json)
-#add_subdirectory( ${nlohmann_json_source} ${nlohmann_json_BINARY_DIR} EXCLUDE_FROM_ALL)
-#   FetchContent_GetProperties(nlohmann_json)
-#   if(NOT nlohmann_json_POPULATED)
-#     FetchContent_Populate(nlohmann_json)
-#     add_subdirectory( ${json_SOURCE_DIR} ${json_BINARY_DIR} EXCLUDE_FROM_ALL)
-#   endif()
-
 #######################################
 ##      ADDING HEADERS LIBRARY       ##
 #######################################
 include_directories(${HEADER_SEARCH_PATHS} ${Boost_INCLUDE_DIRS})
-#add_library(nlohmann_json INTERFACE)
-#target_include_directories(nlohmann_json INTERFACE ${nlohmann_json_SOURCE_DIR})
+
 target_link_libraries(${PROJECT_NAME} PRIVATE nlohmann_json::nlohmann_json cpr::cpr ${Boost_LIBRARIES})

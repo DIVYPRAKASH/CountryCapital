@@ -3,17 +3,8 @@ FROM ubuntu:20.10
 LABEL MAINTAINER "DIVY"
 
 RUN apt-get update && apt-get install -y apt-utils cmake g++ make build-essential git wget
-#RUN apt-get install -y cmake libblkid-dev e2fslibs-dev libboost-all-dev libaudit-dev libboost-test-dev
 RUN apt-get install -y libboost-test-dev libblkid-dev e2fslibs-dev libboost-all-dev libaudit-dev
-#RUN apt-get install -y libboost-test-dev
-# RUN cd /home && wget http://downloads.sourceforge.net/project/boost/boost/1.60.0/boost_1_60_0.tar.gz \
-#   && tar xfz boost_1_60_0.tar.gz \
-#   && rm boost_1_60_0.tar.gz \
-#   && cd boost_1_60_0 \
-#   && ./bootstrap.sh --prefix=/usr/local --with-libraries=program_options \
-#   && ./b2 install \
-#   && cd /home \
-#   && rm -rf boost_1_60_0
+
 
 RUN git clone https://github.com/whoshuu/cpr.git
 RUN apt-get install libssl-dev

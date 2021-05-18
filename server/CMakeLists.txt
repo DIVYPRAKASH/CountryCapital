@@ -31,23 +31,6 @@ if(NOT json_POPULATED)
 endif()
 
 
-#####################################
-##      HEADERS SEARCH PATHS       ##
-##################################### 
-#set(PROJECT_INCLUDE_DIR "src/include")
-#set(PISTACHE_INCLUDE_DIR "pistache/include")
-
-##set(HEADER_SEARCH_PATHS ${PROJECT_INCLUDE_DIR} ${PISTACHE_INCLUDE_DIR})
-
-#####################################
-##      LIBRARY SEARCH PATHS       ##
-#####################################
-# set(PISTACHE_LIBRARY "${PROJECT_SOURCE_DIR}/pistache/lib/src/libpistache.a")
-# set(EXTRA_LIBRARY "-pthread")
-
-# set(LIBRARIES_SEARCH_PATHS ${PISTACHE_LIBRARY})
-
-
 #######################################
 ##      ADDING HEADERS LIBRARY       ##
 #######################################
